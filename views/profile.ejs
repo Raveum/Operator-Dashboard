@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="icon" href="/public/images/favicon.png" type="image/png">
+    <link href="../public/css/profile.css" rel="stylesheet" type="text/css" />
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <!-- Your logo or title, acting as a return to home link -->
+            <a class="navbar-item" href="/">
+                Home Page
+            </a>
+    
+            <!-- The mobile navbar-burger -->
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    
+        <div id="navbarBasic" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/user/profile" class="navbar-item">
+                    Profile
+                </a>
+            </div>
+    
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <form action="/user/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="button is-small is-info">Log Out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>    
+    <section class="section">
+      <div class="container">
+          <div class="columns is-centered">
+              <div class="column is-half">
+                  <h1 class="title">Hi <%= user.firstName %></h1>
+                  
+                  <% if(messages.error) { %>
+                      <div class="notification is-danger"><%= messages.error %></div>
+                  <% } %>
+                  <% if(messages.success) { %>
+                      <div class="notification is-success"><%= messages.success %></div>
+                  <% } %>
+  
+                  <form>
+                      <div class="field">
+                          <label class="label" for="firstName">First Name:</label>
+                          <div class="control">
+                              <input class="input" type="text" id="firstName" name="firstName" value="<%= user.firstName %>" disabled>
+                          </div>
+                      </div>
+                
+                      <div class="field">
+                          <label class="label" for="lastName">Last Name:</label>
+                          <div class="control">
+                              <input class="input" type="text" id="lastName" name="lastName" value="<%= user.lastName %>" disabled>
+                          </div>
+                      </div>
+                
+                      <div class="field">
+                          <label class="label" for="email">Email:</label>
+                          <div class="control">
+                              <input class="input" type="email" id="email" name="email" value="<%= user.email %>" disabled>
+                          </div>
+                      </div>
+                
+                      <div class="field">
+                          <label class="label" for="brokerCode">Broker Code:</label>
+                          <div class="control">
+                              <input class="input" type="text" id="brokerCode" name="brokerCode" value="<%= user.brokerCode %>" disabled>
+                          </div>
+                      </div>
+                  </form>
+  
+                  <% if(!passwordChanged) { %>
+                      <div class="field">
+                        <br>
+                          <button id="changePasswordBtn" class="button is-info">Change Password</button>
+                      </div>
+                  <% } %>
+                  
+                  <div id="changePasswordForm" style="display:none;">
+                      <form action="/user/changePassword" method="POST">
+                          <div class="field">
+                              <label class="label" for="currentPassword">Current Password:</label>
+                              <div class="control">
+                                  <input class="input" type="password" id="currentPassword" name="currentPassword" required>
+                              </div>
+                          </div>
+                          
+                          <div class="field">
+                              <label class="label" for="newPassword">New Password:</label>
+                              <div class="control">
+                                  <input class="input" type="password" id="newPassword" name="newPassword" required>
+                              </div>
+                          </div>
+                          
+                          <div class="field">
+                              <label class="label" for="confirmNewPassword">Confirm New Password:</label>
+                              <div class="control">
+                                  <input class="input" type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+                              </div>
+                          </div>
+                          
+                          <div class="field">
+                              <div class="control">
+                                  <button type="submit" class="button is-primary">Submit</button>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>  
+    <script src="../public/js/profile.js"></script>
+  </body>
+</html>

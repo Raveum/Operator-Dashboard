@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Home</title>
+        <link rel="icon" href="/public/images/favicon.png" type="image/png">
+        <link href="../public/css/home.css" rel="stylesheet" type="text/css" />
+        <!-- Bulma CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- DataTables CSS for Bulma -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bulma.css">
+         <!-- VexJS CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-wireframe.min.css" />
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+         <!-- VexJS JS -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script> 
+        <!-- Bulma JS -->
+        <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bulma.js"></script> 
+      </head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <!-- Your logo or title, acting as a return to home link -->
+            <a class="navbar-item" href="/">
+                Home Page
+            </a>
+    
+            <!-- The mobile navbar-burger -->
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    
+        <div id="navbarBasic" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/user/profile" class="navbar-item">
+                    Profile
+                </a>
+            </div>
+    
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <form action="/user/logout?_method=DELETE" method="POST">
+                        <button type="submit" class="button is-small is-info">Log Out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>    
+    <div class="table-container">
+        <button id="registerNewClientBtn" class="button is-info" >Register a New Client</button>
+        <br>
+        <br>
+        <table id="clientsTable" class="table is-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Potential Budget</th>
+                    <th>Timeline to Invest</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script src="../public/js/home.js"></script>
+</body>
+</html>

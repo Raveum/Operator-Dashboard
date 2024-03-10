@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Broker Login</title>
+    <link rel="icon" href="/public/images/favicon.png" type="image/png">
+    <link href="../public/css/login.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-6-tablet is-5-desktop is-4-widescreen">
+                    <form action="/user/login" method="POST" class="box">
+                        <h1 class="title has-text-centered">Broker Login</h1>
+                        <div class="field">
+                            <label for="email" class="label">Email</label>
+                            <div class="control has-icons-left">
+                                <input type="email" id="email" name="email" class="input" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="password" class="label">Password</label>
+                            <div class="control has-icons-left">
+                                <input type="password" id="password" name="password" class="input" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <% if (messages.error && messages.error.length > 0) { %>
+                          <article class="message is-danger">
+                              <div class="message-body">
+                                  <%= messages.error %>
+                              </div>
+                          </article>
+                      <% } %>
+
+                        <div class="field">
+                          <br>
+                            <button type="submit" class="button is-info is-fullwidth">Login</button>
+                        </div>
+                    </form>
+                    <p class="has-text-centered">
+                        <a href="/user/register">Register</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../public/js/login.js"></script>
+</body>
+</html>

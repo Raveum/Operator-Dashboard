@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Broker Registration</title>
+    <link rel="icon" href="/public/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-6-tablet is-5-desktop is-4-widescreen">
+                    <form action="/user/register" method="POST" class="box">
+                        <h1 class="title has-text-centered">Broker Registration</h1>
+                        
+                        <% if (messages.error && messages.error.length > 0) { %>
+                            <div class="notification is-danger">
+                                <%= messages.error %>
+                            </div>
+                        <% } %>
+                        
+                        <div class="field">
+                            <label for="firstName" class="label">First Name</label>
+                            <div class="control">
+                                <input type="text" id="firstName" name="firstName" class="input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="field">
+                            <label for="lastName" class="label">Last Name</label>
+                            <div class="control">
+                                <input type="text" id="lastName" name="lastName" class="input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="field">
+                            <label for="email" class="label">Email</label>
+                            <div class="control has-icons-left">
+                                <input type="email" id="email" name="email" class="input" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="field">
+                            <label for="password" class="label">Password</label>
+                            <div class="control has-icons-left">
+                                <input type="password" id="password" name="password" class="input" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="field" id="brokerReferralField" style="display:none;">
+                            <label for="referredCode" class="label">Broker Referral Code:</label>
+                            <div class="control">
+                                <input type="text" id="referredCode" name="referredCode" class="input">
+                            </div>
+                        </div>
+                        
+                        <div class="field has-text-centered">
+                          <br>
+                          <button type="button" id="brokerReferralBtn" class="button is-link is-light">I have a broker referral code</button>
+                        </div>
+                        
+                        <div class="field">
+                          <br>
+                            <button type="submit" class="button is-info is-fullwidth">Register</button>
+                        </div>
+                    </form>
+                    <p class="has-text-centered">
+                        <a href="/user/login">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../public/js/register.js"></script>
+</body>
+</html>
