@@ -1,6 +1,35 @@
+html {
+    height: 100%;
+}
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.main-content {
+    flex: 1; 
+}
 
 .table-container {
     width: 60%;
     margin: 0 auto;
 }
+
+@media (max-width: 768px) {
+    .footer-responsive {
+      flex-direction: column !important;
+      text-align: center !important;
+    }
+    .footer-responsive > div {
+      flex-basis: 100% !important;
+      max-width: 100% !important;
+      text-align: center !important;
+    }
+    .footer-location, .footer-email {
+        display: none !important;
+    }
+    
+  }
