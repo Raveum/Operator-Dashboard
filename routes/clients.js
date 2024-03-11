@@ -83,7 +83,7 @@ router.post('/update/:id', async (req, res) => {
           email, 
           potentialBudget, 
           timelineToInvest
-      }, { new: true }); // The { new: true } option returns the document after update
+      }, { new: true });
 
       if (!client) {
           return res.status(404).json({ message: 'Client not found' });
