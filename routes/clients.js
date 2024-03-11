@@ -51,4 +51,49 @@ router.get('/getClients', async (req, res) => {
   }
 });
 
+router.get('/getClientById/:id', async (req, res) => {
+  if (!req.user) {
+      return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  try {
+      const client = await Client.findById(req.params.id);
+      if (!client) {
+          return res.status(404).json({ message: 'Client not found' });
+      }
+      res.json(client);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error fetching client.' });
+  }
+});
+
+router.post('/update/:id', async (req, res) => {
+  if (!req.user) {
+      return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  try {
+      const { firstName, lastName, age, phoneNumber, email, potentialBudget, timelineToInvest } = req.body;
+      const client = await Client.findByIdAndUpdate(req.params.id, {
+          firstName, 
+          lastName, 
+          age, 
+          phoneNumber, 
+          email, 
+          potentialBudget, 
+          timelineToInvest
+      }, { new: true }); // The { new: true } option returns the document after update
+
+      if (!client) {
+          return res.status(404).json({ message: 'Client not found' });
+      }
+      res.json({ message: 'Client updated successfully', client });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error updating client.' });
+  }
+});
+
+
 module.exports = router;

@@ -37,7 +37,7 @@ function fetchClients() {
                     defaultContent: "", 
                     orderable: false,
                     render: function(data, type, row, meta) {
-                        return `<button class="button is-small is-info" onclick="performAction('${row.id}');">Edit</button>`;
+                        return `<button class="button is-small is-info" onclick="editClient('${row._id}');">Edit</button>`;
                     }
                 }
             ],
@@ -48,6 +48,69 @@ function fetchClients() {
         console.error('Error fetching clients:', error);
     });
 }
+
+function editClient(clientId) {
+    fetch(`/clients/getClientById/${clientId}`)
+    .then(response => response.json())
+    .then(client => {
+        vex.dialog.open({
+            message: 'Edit Client',
+            input: [
+                `<input name="firstName" type="text" value="${client.firstName}" placeholder="First Name *" required />`,
+                `<input name="lastName" type="text" value="${client.lastName}" placeholder="Last Name *" required />`,
+                `<input name="age" type="number" value="${client.age || ''}" placeholder="Age" />`,
+                `<input name="phoneNumber" type="tel" value="${client.phoneNumber || ''}" placeholder="Phone Number" />`,
+                `<input name="email" type="email" value="${client.email}" placeholder="Email *" required/>`,
+                `<input name="potentialBudget" type="number" value="${client.potentialBudget}" placeholder="Potential Budget ($$$) *" required />`,
+                // Timeline to Invest will need special handling to select the correct option
+                timelineToInvestSelectHTML(client.timelineToInvest),
+            ].join(''),
+            buttons: [
+                Object.assign({}, vex.dialog.buttons.YES, { text: 'Save' }),
+                Object.assign({}, vex.dialog.buttons.NO, { text: 'Cancel' })
+            ],
+            callback: function (data) {
+                if (data) {
+                    // Update client data
+                    updateClient(clientId, data);
+                }
+            }
+        });
+    })
+    .catch(error => console.error('Error fetching client details:', error));
+}
+
+function timelineToInvestSelectHTML(selectedValue) {
+    let options = [1,2,3,4,5,6,7,8,9,10,11,12,"N/A"].map(value => 
+        `<option value="${value}" ${selectedValue === value ? 'selected' : ''}>${value}</option>`
+    ).join('');
+    return `<select name="timelineToInvest">${options}</select>`;
+}
+
+function updateClient(clientId, data) {
+    fetch(`/clients/update/${clientId}`, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        vex.dialog.alert('Client Updated!');
+        window.location.reload();
+    })
+    .catch(error => {
+        vex.dialog.alert('Error: ' + error.message);
+    });
+}
+
+
 
 
 // DOM elements
