@@ -12,36 +12,49 @@ document.addEventListener('DOMContentLoaded', function() {
 vex.defaultOptions.className = 'vex-theme-wireframe';
 
 $(document).ready(function() {
-  $('#questionForm').on('submit', function(e) {
-      e.preventDefault();
+    $('#questionForm').on('submit', function(e) {
+        e.preventDefault();
+  
+        const questionContent = $.trim($('#questionForm textarea').val());
+        const brokerCode = $('#brokerCode').val(); // Ensure you're retrieving the broker code
 
-      if ($.trim($('#questionForm textarea').val()) === '') {
-          vex.dialog.alert('Empty Submission.');
-          return;
-      }
+        if (questionContent === '') {
+            vex.dialog.alert('Empty Submission.');
+            return;
+        }
+  
+        $.ajax({
+            url: '/user/submitQuestion',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ brokerCode, content: questionContent }),
+            success: function(response) {
+                vex.dialog.alert({
+                    message: 'Your question has been sent. You should hear back from our team within 3 business days.',
+                    callback: function() {
+                        $('#questionForm textarea, #questionForm button[type="submit"]').attr('disabled', true).hide();
+                        $('#anotherQuestion').show();
+                    }
+                });
+            },
+            error: function() {
+                vex.dialog.alert('An error occurred. Please try again later.');
+            }
+        });
+    });
 
-      // Assuming AJAX or form submission logic goes here
+    // Event handler for "Send Another Question" button
+    $('#anotherQuestion').on('click', function() {
+        // Clear the textarea
+        $('#questionForm textarea').val('');
 
-      // Show Vex.js confirmation after submitting
-      vex.dialog.alert({
-          message: 'Your question has been sent. You should hear back from our team within 3 business days.',
-          callback: function() {
-              $('#questionForm textarea, #questionForm button[type="submit"]').attr('disabled', true).hide();
-              $('#anotherQuestion').show();
-          }
-      });
-  });
+        // Re-enable the textarea and the submit button, then focus the textarea
+        $('#questionForm textarea, #questionForm button[type="submit"]').attr('disabled', false).show();
+        $('#questionForm textarea').focus();
 
-  $('#anotherQuestion').on('click', function() {
-      vex.dialog.confirm({
-          message: 'Are you sure you want to send another question?',
-          callback: function(value) {
-              if(value) {
-                  $('#questionForm textarea').val('');
-                  $('#questionForm textarea, #questionForm button[type="submit"]').attr('disabled', false).show();
-                  $('#anotherQuestion').hide();
-              }
-          }
-      });
-  });
+        // Hide the "Send Another Question" button itself
+        $(this).hide();
+    });
 });
+
+  

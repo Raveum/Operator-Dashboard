@@ -8,6 +8,7 @@ const session = require("express-session");
 const methodOverride = require("method-override");
 const initializePassport = require("../passport-config");
 const userModel = require("../models/user-model");
+const questionModel = require('../models/question-model');
 
 // Middleware setup
 router.use(express.urlencoded({ extended: false }));
@@ -154,6 +155,20 @@ router.delete('/logout', checkAuthenticated, (req, res) => {
     }
     res.redirect('/user/login');
   });
+});
+
+// Handle question submission route
+router.post('/submitQuestion', checkAuthenticated, async (req, res) => {
+  const {content } = req.body;
+  let brokerCode = req.user.brokerCode;
+  try {
+    const question = new questionModel({ brokerCode, content });
+    await question.save();
+    res.send({ message: 'Question saved successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Failed to save question.' });
+  }
 });
 
 // Catch all other routes

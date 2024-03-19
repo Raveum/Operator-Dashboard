@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const Client = require('../models/client-model');
+const Question = require('../models/question-model');
 
 router.post('/register', async (req, res) => {
 
   const { email } = req.body;
 
   const brokerCode = req.user.brokerCode;
-
-  console.log(brokerCode)
 
   try {
     const existingClient = await Client.findOne({ email: email });
