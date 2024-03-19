@@ -5,11 +5,16 @@
     <title>Operator Registration</title>
     <link rel="icon" href="/public/images/favicon.png" type="image/png">
     <link href="../public/css/register.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.globe.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-wireframe.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-wireframe';</script>
 </head>
 <body>
     <nav class="navbar" style="justify-content: center; background-color: #F6F9FF;"role="navigation" aria-label="main navigation">
@@ -20,6 +25,26 @@
         </div>
       </nav>
     <div class="main-content">
+    <% if (messages.accessDenied) { %>
+        <script>
+            window.onload = function() {
+            vex.dialog.confirm({
+                message: '<%= messages.accessDenied %>',
+                buttons: [
+                    $.extend({}, vex.dialog.buttons.YES, { text: 'Try Again' }),
+                    $.extend({}, vex.dialog.buttons.NO, { text: 'Linkedin' })
+                ],
+                callback: function (value) {
+                    if (value) {
+                        window.location.href = '/user/register';
+                    } else {
+                        window.location.href = 'https://www.linkedin.com/company/raveum';
+                    }
+                }
+            })
+            };
+        </script>
+    <% } %>
     <section class="section">
         <div class="container">
             <div class="columns is-centered">
@@ -66,6 +91,13 @@
                                 </span>
                             </div>
                         </div>
+
+                        <div class="field">
+                            <label for="accessCode" class="label">Access Code</label>
+                            <div class="control">
+                                <input type="text" id="accessCode" name="accessCode" class="input" required>
+                            </div>
+                        </div>                        
                         
                         <div class="field" id="brokerReferralField" style="display:none;">
                             <label for="referredCode" class="label">Operator Referral Code:</label>

@@ -47,45 +47,52 @@ router.get("/register", checkNotAuthenticated, (req, res) => {
 
 // Registration form submission
 router.post('/register', checkNotAuthenticated, async (req, res, next) => {
-  let { referredCode } = req.body;
+  let { referredCode, accessCode } = req.body;
 
   try {
-      const existingUser = await userModel.findOne({ email: req.body.email });
-      if (existingUser) {
-          req.flash('error', 'Email already in use');
-          return res.redirect("/user/register");
-      } else {
-        
-          if (referredCode) {
-            const brokerExists = await userModel.findOne({ brokerCode: referredCode });
-            if (!brokerExists) {
-                req.flash('error', 'Incorrect Broker Code');
-                return res.redirect("/user/register");
-            }
-          } else {
-            referredCode = "00000000000";
-          }
-          const hashedPassword = await bcrypt.hash(req.body.password, 10);
-          try {
-              const brokerCode = await generateUniqueBrokerCode(userModel); // Attempt to generate unique code
-              const user = new userModel({
-                  firstName: req.body.firstName,
-                  lastName: req.body.lastName,
-                  email: req.body.email,
-                  password: hashedPassword,
-                  brokerCode: brokerCode,
-                  referredCode: referredCode
-              });
-              await user.save();
-              req.login(user, function(err) {
-                  if (err) return next(err);
-                  return res.redirect("/");
-              });
-          } catch (error) {
-              req.flash('error', error.message); // Inform the user to contact technical support
+
+    if (accessCode !== 'hightableapproved') {
+      req.flash('accessDenied', 'Incorrect access code. Please contact our team on LinkedIn for assistance.');
+      return res.redirect("/user/register");
+    }
+
+    const existingUser = await userModel.findOne({ email: req.body.email });
+    
+    if (existingUser) {
+        req.flash('error', 'Email already in use');
+        return res.redirect("/user/register");
+    } else {
+      
+        if (referredCode) {
+          const brokerExists = await userModel.findOne({ brokerCode: referredCode });
+          if (!brokerExists) {
+              req.flash('error', 'Incorrect Broker Code');
               return res.redirect("/user/register");
           }
-      }
+        } else {
+          referredCode = "00000000000";
+        }
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        try {
+            const brokerCode = await generateUniqueBrokerCode(userModel); // Attempt to generate unique code
+            const user = new userModel({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                password: hashedPassword,
+                brokerCode: brokerCode,
+                referredCode: referredCode
+            });
+            await user.save();
+            req.login(user, function(err) {
+                if (err) return next(err);
+                return res.redirect("/");
+            });
+        } catch (error) {
+            req.flash('error', error.message); // Inform the user to contact technical support
+            return res.redirect("/user/register");
+        }
+    }
   } catch {
       sreq.flash('error', 'Failed to create user. Please contact technical support.');
       res.redirect("/user/register");
