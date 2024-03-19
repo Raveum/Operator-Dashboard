@@ -1,19 +1,3 @@
-VANTA.DOTS({
-    el: "#body",
-    mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00,
-    size: 2.60,
-    color: 0x0,
-    color2: 0x0,
-    backgroundColor: 0xffffff,
-    showLines: false
-  })
-
 document.addEventListener('DOMContentLoaded', function() {
     const navbarBurger = document.querySelector('.navbar-burger');
     const menu = document.getElementById(navbarBurger.dataset.target);
