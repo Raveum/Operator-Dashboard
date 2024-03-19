@@ -62,7 +62,6 @@ function editClient(clientId) {
                 `<input name="phoneNumber" type="tel" value="${client.phoneNumber || ''}" placeholder="Phone Number" />`,
                 `<input name="email" type="email" value="${client.email}" placeholder="Email *" required/>`,
                 `<input name="potentialBudget" type="number" value="${client.potentialBudget}" placeholder="Potential Budget ($$$) *" required />`,
-                // Timeline to Invest will need special handling to select the correct option
                 timelineToInvestSelectHTML(client.timelineToInvest),
             ].join(''),
             buttons: [
