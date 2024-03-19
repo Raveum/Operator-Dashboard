@@ -45,6 +45,11 @@ router.get("/register", checkNotAuthenticated, (req, res) => {
   res.render("register.ejs", { messages: req.flash() });
 });
 
+// Raveum 101 Route
+router.get("/raveum101", checkAuthenticated, (req, res) => {
+  res.render("raveum101.ejs");
+});
+
 // Registration form submission
 router.post('/register', checkNotAuthenticated, async (req, res, next) => {
   let { referredCode, accessCode } = req.body;

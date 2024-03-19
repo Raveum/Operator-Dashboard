@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Raveum 101</title>
+    <link rel="icon" href="/public/images/favicon.png" type="image/png">
+    <link href="../public/css/raveum101.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-wireframe.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<nav class="navbar" style="background-color: #E9ECF5;" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            Home Page
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasic" class="navbar-menu">
+        <div class="navbar-start">
+            <a href="/user/profile" class="navbar-item">
+                Profile
+            </a>
+            <a href="/user/raveum101" class="navbar-item">
+                Raveum 101
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <form action="/user/logout?_method=DELETE" method="POST">
+                    <button type="submit" class="button is-small is-info">Log Out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="main-content">
+    <section class="section">
+      <div class="container">
+
+    </div>
+    </section>
+</div>
+<footer class="footer" style="background-color: #F6F9FF; color: #111928; padding: 20px 0;">
+    <div class="content">
+      <div class="container footer-responsive" style="display: flex; justify-content: start; align-items: center;">
+        <div style="flex-grow: 1; display: flex; align-items: center;">
+          <img src="../public/images/favicon.png" alt="Raveum Logo" style="max-height: 40px;">
+          <p style="color: #111928; margin-left: 10px; margin-bottom: 0; font-size: 18px">Raveum</p>
+        </div>
+        <div style="flex-grow: 2; text-align: right;">
+            <span class="footer-location">
+              <span class="icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </span>
+              254 Chapman Road, 16526, Newark, DE 19702
+              <br>
+            </span>
+            <span class="footer-email">
+              <span class="icon" style="vertical-align: middle;">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <a href="mailto:support@raveum.com" style="color: #111928; vertical-align: middle; margin-left: 5px;">support@raveum.com</a>
+            </span>
+          </div>
+      </div>
+    </div>
+</footer>
+<script src="../public/js/raveum101.js"></script>
+</body>
+</html>
