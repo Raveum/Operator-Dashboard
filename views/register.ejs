@@ -151,5 +151,14 @@
       </footer>   
     </div>
     <script src="../public/js/register.js"></script>
+    <script>
+        $(document).ready(function() {
+            if (window.innerWidth < 1024) {
+                vex.dialog.alert({
+                    message: 'This functionality has been optimized for mobile.',
+                });
+            }
+        });
+    </script> 
 </body>
 </html>

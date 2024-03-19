@@ -5,6 +5,13 @@
     <title>Operator Profile</title>
     <link rel="icon" href="/public/images/favicon.png" type="image/png">
     <link href="../public/css/profile.css" rel="stylesheet" type="text/css" />
+    <!-- Vex CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-wireframe.min.css" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Vex JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -150,5 +157,15 @@
     </div>
     </footer>
     <script src="../public/js/profile.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-wireframe';</script>
+    <script>
+      $(document).ready(function() {
+          if (window.innerWidth < 1024) {
+              vex.dialog.alert({
+                  message: 'This functionality has been optimized for mobile.',
+              });
+          }
+      });
+  </script> 
     </body>
 </html>
